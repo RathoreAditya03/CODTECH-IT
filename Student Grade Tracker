@@ -1,0 +1,71 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentGrade {
+    private static ArrayList<Double> grades = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        inputGrades();
+        double averageGrade = calculateAverage();
+        char letterGrade = calculateLetterGrade(averageGrade);
+        double gpa = calculateGPA(letterGrade);
+
+        displayResults(averageGrade, letterGrade, gpa);
+    }
+
+    private static void inputGrades() {
+        System.out.println("Enter the no. of subjects for grades:");
+        int numberOfGrades = scanner.nextInt();
+
+        for (int i = 0; i < numberOfGrades; i++) {
+            System.out.print("Enter grade for subject " + (i + 1) + ": ");
+            double grade = scanner.nextDouble();
+            grades.add(grade);
+        }
+    }
+
+    private static double calculateAverage() {
+        double sum = 0;
+        for (double grade : grades) {
+            sum += grade;
+        }
+        return sum / grades.size();
+    }
+
+    private static char calculateLetterGrade(double averageGrade) {
+        if (averageGrade >= 90) {
+            return 'A';
+        } else if (averageGrade >= 80) {
+            return 'B';
+        } else if (averageGrade >= 70) {
+            return 'C';
+        } else if (averageGrade >= 60) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+
+    private static double calculateGPA(char Grade) {
+        switch (Grade) {
+            case 'A':
+                return 4.0;
+            case 'B':
+                return 3.0;
+            case 'C':
+                return 2.0;
+            case 'D':
+                return 1.0;
+            default:
+                return 0.0;
+        }
+    }
+
+    private static void displayResults(double averageGrade, char Grade, double cgpa) {
+        System.out.println("\n=== Student Grade Summary ===");
+        System.out.println("Average Grade: " + averageGrade);
+        System.out.println("Letter Grade: " + Grade);
+        System.out.println("CGPA: " + cgpa);
+    }
+}
